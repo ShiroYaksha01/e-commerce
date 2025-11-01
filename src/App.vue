@@ -3,18 +3,39 @@ import categoryComponent from './components/categoryComponent.vue'
 import promoComponent from './components/promoComponent.vue'
 import buttonComponent from './components/buttonComponent.vue'
 
-const categories = [
-  { title: 'Cake & Milk', items: 14, imgSrc: '/img/cate/1.png', bgColor: "#F2FCE4"},
-  { title: 'Peach', items: 17, imgSrc: '/img/cate/2.png', bgColor: "#FEFBE8"},
-  { title: 'Organic Kiwi', items: 21, imgSrc: '/img/cate/3.png', bgColor: "#EAFEEF"},
-  { title: 'Red Apple', items: 68, imgSrc: '/img/cate/4.png', bgColor: "#FFF0E9"},
-  { title: 'Snack', items: 34, imgSrc: '/img/cate/5.png', bgColor: "#FEF4EB"},
-  { title: 'Black plum', items: 25, imgSrc: '/img/cate/6.png', bgColor: "#FFF4FF"},
-  { title: 'Vegetables', items: 65, imgSrc: '/img/cate/7.png', bgColor: "#F2FCE4"},
-  { title: 'Headphone', items: 33, imgSrc: '/img/cate/8.png', bgColor: "#FEFBE8"},
-  { title: 'Cake & Milk', items: 54, imgSrc: '/img/cate/9.png', bgColor: "#F2FCE4"},
-  { title: 'Orange', items: 63, imgSrc: '/img/cate/10.png', bgColor: "#FFF3FF"},
-]
+// const categories = [
+//   { title: 'Cake & Milk', items: 14, imgSrc: '/img/cate/1.png', bgColor: "#F2FCE4"},
+//   { title: 'Peach', items: 17, imgSrc: '/img/cate/2.png', bgColor: "#FEFBE8"},
+//   { title: 'Organic Kiwi', items: 21, imgSrc: '/img/cate/3.png', bgColor: "#EAFEEF"},
+//   { title: 'Red Apple', items: 68, imgSrc: '/img/cate/4.png', bgColor: "#FFF0E9"},
+//   { title: 'Snack', items: 34, imgSrc: '/img/cate/5.png', bgColor: "#FEF4EB"},
+//   { title: 'Black plum', items: 25, imgSrc: '/img/cate/6.png', bgColor: "#FFF4FF"},
+//   { title: 'Vegetables', items: 65, imgSrc: '/img/cate/7.png', bgColor: "#F2FCE4"},
+//   { title: 'Headphone', items: 33, imgSrc: '/img/cate/8.png', bgColor: "#FEFBE8"},
+//   { title: 'Cake & Milk', items: 54, imgSrc: '/img/cate/9.png', bgColor: "#F2FCE4"},
+//   { title: 'Orange', items: 63, imgSrc: '/img/cate/10.png', bgColor: "#FFF3FF"},
+// ]
+
+export default {
+  data() {
+    return {
+      categories = [
+        { title: 'Cake & Milk', items: 14, imgSrc: '/img/cate/1.png', bgColor: "#F2FCE4"},
+        { title: 'Peach', items: 17, imgSrc: '/img/cate/2.png', bgColor: "#FEFBE8"},
+        { title: 'Organic Kiwi', items: 21, imgSrc: '/img/cate/3.png', bgColor: "#EAFEEF"},
+        { title: 'Red Apple', items: 68, imgSrc: '/img/cate/4.png', bgColor: "#FFF0E9"},
+        { title: 'Snack', items: 34, imgSrc: '/img/cate/5.png', bgColor: "#FEF4EB"},
+        { title: 'Black plum', items: 25, imgSrc: '/img/cate/6.png', bgColor: "#FFF4FF"},
+        { title: 'Vegetables', items: 65, imgSrc: '/img/cate/7.png', bgColor: "#F2FCE4"},
+        { title: 'Headphone', items: 33, imgSrc: '/img/cate/8.png', bgColor: "#FEFBE8"},
+        { title: 'Cake & Milk', items: 54, imgSrc: '/img/cate/9.png', bgColor: "#F2FCE4"},
+        { title: 'Orange', items: 63, imgSrc: '/img/cate/10.png', bgColor: "#FFF3FF"},
+      ]
+    };
+  }
+};
+
+
 </script>
 
 <template>
