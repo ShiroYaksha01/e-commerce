@@ -1,21 +1,59 @@
-<template>
-  <div class="category" :style="{ borderColor: '#eee', background: bgColor }">
-    <img :src="imgSrc" :alt="title" class="category-img" />
-    <div class="category-title">{{ title }}</div>
-    <div class="category-items">{{ items }} items</div>
-  </div>
-</template>
+
 
 <script setup lang="ts">
-defineProps<{
-  title: string
-  items: number
-  imgSrc: string
-  bgColor?: string
-}>()
+import { onMounted, ref, type Ref } from 'vue';
+
+type Category =  {
+  name: string
+  productCount: number
+  image: string
+  color?: string
+  group : string
+}
+
+async function load_item(): Promise<Category[]> {
+  const items = await fetch ('http://localhost:3000/api/categories')
+  return await items.json()
+}
+
+const items: Ref<Category[]> = ref([])
+
+onMounted( async () => {
+  items.value = await load_item();
+  console.log('Categories loaded:' + items.value);
+  console.log(items);
+});
+
 </script>
 
+<template>
+  <div class="category-row">
+    <div  v-for="item in items" :key="item.name">
+      <div class="category" :style="{ borderColor: '#eee', background: item.color }">
+      <img :src="`http://localhost:3000/${item.image}`" alt="Nothing" class="category-img" />
+      <div class="category-title">{{ item.name }}</div>
+      <div class="category-items">{{ item.productCount }} items</div>
+    </div>
+  </div>
+
+  </div>
+  
+  
+</template>
+
 <style scoped>
+
+/* Category Row */
+.category-row {
+  width: ;
+  display: flex;
+  flex-direction: row;
+
+  gap: 16px;
+  margin-bottom: 40px;
+  padding-bottom: 8px;
+  -webkit-overflow-scrolling: touch;
+}
 .category {
   width: 120px;
   padding: 12px 8px 8px 8px;
