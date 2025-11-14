@@ -35,17 +35,10 @@ onMounted( async () => {
       <div class="promo-content">
         <div class="promo-title">{{ item.title }}</div>
         <div @click="shopNow(item)">
-          <slot name="button" />
+          <slot name="button" :item="item" />
         </div>
       </div>
-      <div
-        v-if="item.image"
-        class="promo-bg-img"
-        :style="{
-          backgroundImage: `url('${item.image}')`,
-          right: '24px',
-        }"
-      ></div>
+      <img :src="`http://localhost:3000/${item.image}`" alt="Nothing" class="promo-bg-img" />
     </div>
   </div>
   
@@ -88,20 +81,17 @@ onMounted( async () => {
 
 .promo-bg-img {
   position: absolute;
-  top: 0;
-  bottom: 0;
+  top: 50%;
   right: 24px;
-  margin: auto 0;
-  width: 300px;
-  height: 100%;
-  min-height: 80px;
-  max-height: 200px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: right center;
+  transform: translateY(-50%);
+  
+  width: 250px;
+  max-height: 140px;
+  object-fit: contain;
+  
   pointer-events: none;
   z-index: 0;
-  opacity: 1;
-  transition: right 0.2s;
 }
+
+
 </style>

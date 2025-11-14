@@ -5,11 +5,11 @@ import buttonComponent from './components/buttonComponent.vue'
 
 
 
-const buttonStyles = [
-  { bgColor: '#3BB77E', textColor: '#fff'},
-  { bgColor: '#3BB77E', textColor: '#fff'},
-  { bgColor: '#FDC040', textColor: '#fff'},
-]
+// const buttonStyles = [
+//   { bgColor: '#3BB77E', textColor: '#fff'},
+//   { bgColor: '#3BB77E', textColor: '#fff'},
+//   { bgColor: '#FDC040', textColor: '#fff'},
+// ]
 
 
 </script>
@@ -20,8 +20,19 @@ const buttonStyles = [
 
     <!-- Promo Row -->
     <div class="promo-row">
-      <promoComponent/>
+      <promoComponent>
+        <template #button="{ item }">
+          <buttonComponent
+            :bgColor="item.buttonColor"
+            textColor="#fff"
+          >
+            Shop Now
+          </buttonComponent>
+        </template>
+      </promoComponent>
     </div>
+
+
   </div>
 </template>
 

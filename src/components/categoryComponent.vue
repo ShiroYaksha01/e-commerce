@@ -45,7 +45,7 @@ onMounted( async () => {
 
 /* Category Row */
 .category-row {
-  width: ;
+  width: 100%;
   display: flex;
   flex-direction: row;
 
