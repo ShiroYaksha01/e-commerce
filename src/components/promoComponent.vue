@@ -1,32 +1,48 @@
 
-<template>
-  <div class="promo" :style="{ background: bgColor, borderColor: borderColor }">
-    <div class="promo-content">
-      <div class="promo-title">{{ title }}</div>
-      <div class="promo-desc">{{ desc }}</div>
-      <slot name="button"></slot>
-    </div>
-    <div
-      v-if="imgSrc"
-      class="promo-bg-img"
-      :style="{
-        backgroundImage: `url('${imgSrc}')`,
-        right: imgXOffset || '24px',
-      }"
-    ></div>
-  </div>
-</template>
-
 <script setup lang="ts">
-defineProps<{
+import { onMounted, ref, type Ref } from 'vue';
+
+type Promotion = {
   title: string
-  desc: string
-  imgSrc?: string
-  bgColor?: string
-  borderColor?: string
-  imgXOffset?: string | number
-}>()
+  image?: string
+  buttonColor : string
+  color?: string
+  url : string
+}
+
+function shopNow(item: Promotion) {
+  alert("Let's shop: " + item.title);
+}
+
+async function load_item(): Promise<Promotion[]> {
+  const items = await fetch ('http://localhost:3000/api/promotions')
+  return await items.json()
+}
+
+const items: Ref<Promotion[]> = ref([])
+
+onMounted( async () => {
+  items.value = await load_item();
+  console.log('Promotions loaded:' + items.value);
+  console.log(items);
+});
+
 </script>
+
+<template>
+  <div v-for="item in items" :key="item.title"> 
+    <div class="promo" :style="{ background: item.color}">
+      <div class="promo-content">
+        <div class="promo-title">{{ item.title }}</div>
+        <div @click="shopNow(item)">
+          <slot name="button" :item="item" />
+        </div>
+      </div>
+      <img :src="`http://localhost:3000/${item.image}`" alt="Nothing" class="promo-img" />
+    </div>
+  </div>
+  
+</template>
 
 <style scoped>
 .promo {
@@ -49,29 +65,8 @@ defineProps<{
   margin-bottom: 8px;
   color: #000
 }
-.promo-desc {
-  font-size: 1rem;
-  color: #555;
-  margin-bottom: 16px;
-}
-.promo-bg-img {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 24px;
-  margin: auto 0;
-  width: 300px;
-  height: 100%;
-  min-height: 80px;
-  max-height: 200px;
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: right center;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 1;
-  transition: right 0.2s;
-}
+
+
 .promo {
   position: relative;
   overflow: hidden;
@@ -83,4 +78,18 @@ defineProps<{
   padding-right: 140px; /* ensures text never overlaps the image */
   box-sizing: border-box;
 }
+
+.promo-img {
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  transform: translateY(-50%);
+  width: 250px;
+  max-height: 140px;
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
 </style>
