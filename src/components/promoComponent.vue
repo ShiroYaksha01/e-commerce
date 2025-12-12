@@ -53,7 +53,7 @@ onMounted( async () => {
   border-radius: 16px;
   padding: 24px 32px;
   min-height: 180px;
-  margin: 0 12px;
+  /* margin: 0 12px; */
   background: #fff;
 }
 .promo-content {
@@ -72,6 +72,7 @@ onMounted( async () => {
   overflow: hidden;
   min-height: 140px;
 }
+
 .promo-content {
   position: relative;
   z-index: 1;

@@ -1,40 +1,24 @@
 
 
 <script setup lang="ts">
-import { onMounted, ref, type Ref } from 'vue';
+import { computed } from 'vue'
+import { useProductStore } from '../stores/product'
 
-type Category =  {
-  name: string
-  productCount: number
-  image: string
-  color?: string
-  group : string
-}
+const productStore = useProductStore()
 
-async function load_item(): Promise<Category[]> {
-  const items = await fetch ('http://localhost:3000/api/categories')
-  return await items.json()
-}
-
-const items: Ref<Category[]> = ref([])
-
-onMounted( async () => {
-  items.value = await load_item();
-  console.log('Categories loaded:' + items.value);
-  console.log(items);
-});
+const items = computed(() => productStore.categories)
 
 </script>
 
 <template>
   <div class="category-row">
-    <div  v-for="item in items" :key="item.name">
-      <div class="category" :style="{ borderColor: '#eee', background: item.color }">
-      <img :src="`http://localhost:3000/${item.image}`" alt="Nothing" class="category-img" />
-      <div class="category-title">{{ item.name }}</div>
-      <div class="category-items">{{ item.productCount }} items</div>
+    <div  v-for="item in items" :key="item.title">
+      <div class="category" :style="{ borderColor: '#eee', background: item.bgColor }">
+        <img :src="item.imgSrc" alt="Nothing" class="category-img" />
+        <div class="category-title">{{ item.title }}</div>
+        <div class="category-items">{{ item.items }} items</div>
+      </div>
     </div>
-  </div>
 
   </div>
   
