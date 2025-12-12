@@ -1,4 +1,4 @@
-<script  lang="ts">
+<script lang="ts">
 import axios from 'axios'
 import categoryComponent from './components/categoryComponent.vue'
 import promoComponent from './components/promoComponent.vue'
