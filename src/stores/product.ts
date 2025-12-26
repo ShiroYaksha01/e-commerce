@@ -92,7 +92,6 @@ export const useProductStore = defineStore('product', {
       try {
         const response = await axios.get('http://localhost:3000/api/groups')
         this.groups = response.data.map((group: { name: string }) => group.name)
-        console.log('✅ Fetched groups:', this.groups)
       } catch (error) {
         console.error('Error fetching groups:', error)
       }
