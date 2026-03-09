@@ -3,9 +3,8 @@
     <div @click="toggleStatus(todo.id)">
       <input type="checkbox" :checked="todo.completedAt != null"/>
       <span class="task">{{ todo.name }}</span>
-      <i class="uil" :class="icon"></i>
     </div>
-    <button class="delete-btn" @click.stop="deleteTodo(todo.id)">Delete</button>
+    <i class="uil" :class="icon"  @click.stop="deleteTodo(todo.id)"></i>
   </li>
     
 </template>

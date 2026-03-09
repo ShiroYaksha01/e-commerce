@@ -54,7 +54,7 @@ export const useTodoStore = defineStore("todo", {
     },
     async clearAll() {
       try {
-        await axios.delete('http://localhost:3100/tasks');
+        await axios.delete(`http://localhost:3100/tasks/`);
         this.todos = [];
       } catch (error) {
         console.error('Failed to clear todos:', error);

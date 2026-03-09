@@ -41,7 +41,7 @@ export class TaskService {
   }
 
   async removeAll() {
-    await this.taskRepo.delete({});
+    await this.taskRepo.clear();
     return { message: 'success' };
   }
 }
