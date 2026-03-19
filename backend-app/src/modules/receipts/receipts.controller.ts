@@ -20,7 +20,7 @@ export class ReceiptsController {
     return this.receiptsService.findOne(id);
   }
 
-  @Post()
+  @Post('/orders')
   create(@Body() dto: CreateReceiptDto) {
     return this.receiptsService.create(dto);
   }
