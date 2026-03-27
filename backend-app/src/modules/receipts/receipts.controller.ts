@@ -5,7 +5,7 @@ import { UpdateReceiptDto } from './dto/update-receipt.dto';
 import { UseGuards } from '@nestjs/common';
 import { ApiKeyGuard } from 'src/common/guards/api-key.guard';
 
-@UseGuards(ApiKeyGuard)
+// @UseGuards(ApiKeyGuard)
 @Controller('receipts')
 export class ReceiptsController {
   constructor(private readonly receiptsService: ReceiptsService) {}
@@ -20,7 +20,7 @@ export class ReceiptsController {
     return this.receiptsService.findOne(id);
   }
 
-  @Post('/orders')
+  @Post()
   create(@Body() dto: CreateReceiptDto) {
     return this.receiptsService.create(dto);
   }
