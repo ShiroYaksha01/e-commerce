@@ -1,17 +1,16 @@
-import { Entity, PrimaryGeneratedColumn, Column} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity()
 export class Receipt {
-    @PrimaryGeneratedColumn('uuid')
-    receiptId: string;
+  @PrimaryGeneratedColumn()
+  receiptId!: string;
 
-    @Column({length: 100})
-    name: string;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  issuedAt!: Date;
 
-    @Column()
-    price: number;
+  @Column()
+  name!: string;
 
-    @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-    issuedAt: Date;
-
+  @Column()
+  price!: number;
 }

@@ -24,7 +24,7 @@ export class ReceiptsService {
 
   async create(dto: CreateReceiptDto) {
     const receipt = this.receiptRepo.create({
-      issuedAt: new Date(dto.issuedAt),
+      issuedAt: dto.issuedAt ? new Date(dto.issuedAt) : undefined,
       name: dto.name,
       price: dto.price,
     });

@@ -1,20 +1,19 @@
 import {IsDateString, IsNotEmpty, IsNumber, IsString, Min, IsPositive, IsOptional} from 'class-validator';
 
 export class CreateReceiptDto {
+  
+  @IsOptional()
+  @IsDateString()
+  issuedAt: string;
 
-    @IsOptional()
-    @IsDateString()
-    issuedAt: Date;
-
-    @IsString()
-    @IsNotEmpty()
-    name: string;
+  @IsString()
+  @IsNotEmpty()
+  name: string;
 
 
-    @IsNumber()
-    @IsPositive()
-    @Min(0)
-    price: number;
-
+  @IsNumber()
+  @IsPositive()
+  @Min(0)
+  price: number;
 }
 
