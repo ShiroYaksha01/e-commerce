@@ -7,6 +7,9 @@ import { ApiKeyGuard } from './common/guards/api-key.guard';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.useGlobalInterceptors(new LoggingInterceptor());
+  app.useGlobalGuards(new ApiKeyGuard());
+  
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -15,8 +18,7 @@ async function bootstrap() {
     }),
   );
 
-  app.useGlobalInterceptors(new LoggingInterceptor());
-  app.useGlobalGuards(new ApiKeyGuard());
+  
 
   await app.listen(process.env.PORT ?? 3000);
 }

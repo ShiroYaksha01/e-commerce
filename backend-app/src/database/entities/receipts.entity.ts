@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Order } from './orders.entity';
 
 @Entity()
 export class Receipt {
@@ -13,4 +14,7 @@ export class Receipt {
 
   @Column()
   price!: number;
+
+  @OneToOne(() => Order, (order) => order.receipt)
+  order!: Order;
 }

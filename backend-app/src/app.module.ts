@@ -3,7 +3,9 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ReceiptModule } from './modules/receipts/receipts.module';
+import { OrdersModule } from './modules/orders/orders.module';
 import { Receipt } from './database/entities/receipts.entity';
+import { Order } from './database/entities/orders.entity';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
@@ -19,10 +21,11 @@ import { ConfigModule } from '@nestjs/config';
       username: 'shiro',
       password: '123',
       database: 'receipt_db',
-      entities: [Receipt],
+      entities: [Order, Receipt],
       synchronize: true,
     }),
-    ReceiptModule
+    OrdersModule,
+    ReceiptModule,
   ],
 })
 export class AppModule {}
