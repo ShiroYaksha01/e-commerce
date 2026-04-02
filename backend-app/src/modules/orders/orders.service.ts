@@ -5,6 +5,8 @@ import { Order } from 'src/database/entities/orders.entity';
 import { Receipt } from 'src/database/entities/receipts.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
+import { NotificationsService } from 'src/notifications/notifications.service';
+
 
 @Injectable()
 export class OrdersService {
@@ -13,6 +15,8 @@ export class OrdersService {
     private readonly orderRepo: Repository<Order>,
     @InjectRepository(Receipt)
     private readonly receiptRepo: Repository<Receipt>,
+    //@Inject('ORDERS_SERVICE') private client: ClientProxy,
+    private readonly notifications: NotificationsService,
   ) {}
 
   async findAll() {
@@ -47,7 +51,17 @@ export class OrdersService {
       price: dto.price,
       receipt: savedReceipt,
     });
-    return this.orderRepo.save(order);
+
+    const saved = await this.orderRepo.save(order);
+
+    this.notifications.notify('order_created', {
+        orderId: saved.orderId,
+        receiptId: saved.receipt.receiptId,
+        price: saved.price,
+    });
+
+
+    return saved;
   }
 
   async update(orderId: string, dto: UpdateOrderDto) {
@@ -66,7 +80,16 @@ export class OrdersService {
       await this.receiptRepo.save(order.receipt);
     }
 
-    return this.orderRepo.save(order);
+    const saved = await this.orderRepo.save(order);
+
+    this.notifications.notify('order_updated', {
+        orderId: saved.orderId,
+        receiptId: saved.receipt.receiptId,
+        price: saved.price,
+    });
+
+
+    return saved;
   }
 
   async remove(orderId: string) {
