@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Inject,Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Order } from 'src/database/entities/orders.entity';
@@ -6,17 +6,25 @@ import { Receipt } from 'src/database/entities/receipts.entity';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { NotificationsService } from 'src/notifications/notifications.service';
+import { ClientProxy } from '@nestjs/microservices/client/client-proxy';
 
+ import { EVENT_PUBLISHER } from 'src/core/tokens'; 
+ type EventPublisher = { publish: (event: string, payload: any) => void };
 
 @Injectable()
 export class OrdersService {
   constructor(
     @InjectRepository(Order)
     private readonly orderRepo: Repository<Order>,
+
     @InjectRepository(Receipt)
     private readonly receiptRepo: Repository<Receipt>,
+
     //@Inject('ORDERS_SERVICE') private client: ClientProxy,
     private readonly notifications: NotificationsService,
+
+    @Inject(EVENT_PUBLISHER)
+    private readonly publisher: EventPublisher,
   ) {}
 
   async findAll() {
@@ -52,6 +60,8 @@ export class OrdersService {
       receipt: savedReceipt,
     });
 
+
+
     const saved = await this.orderRepo.save(order);
 
     this.notifications.notify('order_created', {
@@ -60,6 +70,11 @@ export class OrdersService {
         price: saved.price,
     });
 
+    // this.publisher.publish('order_created', {  //Use publisher
+    //   orderId: saved.orderId,
+    //   receiptId: saved.receipt.receiptId,
+    //   price: saved.price,
+    // });
 
     return saved;
   }
@@ -82,11 +97,11 @@ export class OrdersService {
 
     const saved = await this.orderRepo.save(order);
 
-    this.notifications.notify('order_updated', {
-        orderId: saved.orderId,
-        receiptId: saved.receipt.receiptId,
-        price: saved.price,
-    });
+    // this.notifications.notify('order_updated', {
+    //     orderId: saved.orderId,
+    //     receiptId: saved.receipt.receiptId,
+    //     price: saved.price,
+    // });
 
 
     return saved;

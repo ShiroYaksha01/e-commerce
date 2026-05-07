@@ -5,10 +5,12 @@ import { Receipt } from 'src/database/entities/receipts.entity';
 import { OrdersService } from './orders.service';
 import { OrdersController } from './orders.controller';
 import { NotificationsModule } from 'src/notifications/notifications.module';
+import { CoreModule } from 'src/core/core.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([Order, Receipt]),
+    CoreModule,
     NotificationsModule,
   ],
   controllers: [OrdersController],
